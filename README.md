@@ -2,6 +2,10 @@
 
 A modern, fast, and customizable help center built with Next.js shadcn and TypeScript. Create beautiful documentation and knowledge bases using simple Markdown files.
 
+## 🌐 Demo
+
+Check out the live demo: **[https://markdown-help-center.vercel.app/](https://markdown-help-center.vercel.app/)**
+
 ## Features
 
 - 📝 **Markdown-Based Content** - Write articles in simple Markdown format

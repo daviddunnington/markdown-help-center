@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ExternalLink, Hash } from "lucide-react";
+import { ExternalLink, Hash, Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/lib/config";
 import * as LucideIcons from "lucide-react";
@@ -66,6 +66,21 @@ export function Header() {
                 asChild
               >
                 <a href={siteConfig.links.twitter}>Twitter</a>
+              </Button>
+            )}
+            {siteConfig.links.github && (
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-white/80 hover:text-white hover:bg-white/20"
+                asChild
+              >
+                <a
+                  href={siteConfig.links.github}
+                  className="flex items-center gap-1"
+                >
+                  <Github className="w-4 h-4" />
+                </a>
               </Button>
             )}
           </nav>

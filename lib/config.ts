@@ -13,13 +13,6 @@ export interface SiteConfig {
   };
 }
 
-// Category ordering - lower numbers appear first
-export const CategoryOrder: Record<string, number> = {
-  "Getting Started": 1,
-  "General Info": 2,
-  Customisation: 3,
-};
-
 // Site configuration
 export const siteConfig: SiteConfig = {
   siteName: "MarkDown",

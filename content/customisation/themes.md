@@ -10,6 +10,17 @@ order: 2
 
 Customize the visual appearance of your help center using shadcn/ui themes and CSS variables.
 
+## Table of Contents
+
+- [Using shadcn/ui Themes](#using-shadcnui-themes)
+- [Custom Gradient Variables](#custom-gradient-variables)
+- [Popular Theme Examples](#popular-theme-examples)
+- [Advanced Customization](#advanced-customization)
+- [Dark Mode Support](#dark-mode-support)
+- [Best Practices](#best-practices)
+- [Troubleshooting](#troubleshooting)
+- [Next Steps](#next-steps)
+
 ## Using shadcn/ui Themes
 
 The easiest way to theme your help center is by using pre-built themes from shadcn/ui.

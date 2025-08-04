@@ -19,7 +19,7 @@ interface BreadcrumbsProps {
 
 export function Breadcrumbs({ items }: BreadcrumbsProps) {
   return (
-    <Breadcrumb>
+    <Breadcrumb className="mt-6">
       <BreadcrumbList className="text-sm">
         {items.map((item, index) => (
           <div key={item.href} className="flex items-center">

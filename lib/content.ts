@@ -5,8 +5,8 @@ import { remark } from "remark";
 import remarkGfm from "remark-gfm";
 import remarkRehype from "remark-rehype";
 import rehypeRaw from "rehype-raw";
+import rehypeSlug from "rehype-slug";
 import rehypeStringify from "rehype-stringify";
-import { CategoryOrder } from "./config";
 
 export interface Article {
   slug: string;
@@ -17,7 +17,53 @@ export interface Article {
   order: number;
 }
 
+export interface CategoryConfig {
+  title: string;
+  name: string;
+  description: string;
+  order: number;
+  emoji?: string;
+}
+
 const contentDirectory = path.join(process.cwd(), "content");
+
+// Cache for category configurations
+let categoryConfigCache: Map<string, CategoryConfig> | null = null;
+
+export function getCategoryConfigs(): Map<string, CategoryConfig> {
+  if (categoryConfigCache) {
+    return categoryConfigCache;
+  }
+
+  const configs = new Map<string, CategoryConfig>();
+
+  // Read all category directories
+  const categoryDirs = fs
+    .readdirSync(contentDirectory, { withFileTypes: true })
+    .filter((dirent) => dirent.isDirectory())
+    .map((dirent) => dirent.name);
+
+  for (const categoryDir of categoryDirs) {
+    const categoryPath = path.join(contentDirectory, categoryDir);
+    const configPath = path.join(categoryPath, "_category.md");
+
+    if (fs.existsSync(configPath)) {
+      const fileContents = fs.readFileSync(configPath, "utf8");
+      const { data } = matter(fileContents);
+
+      configs.set(categoryDir, {
+        title: data.title,
+        name: data.name,
+        description: data.description,
+        order: data.order,
+        emoji: data.emoji,
+      });
+    }
+  }
+
+  categoryConfigCache = configs;
+  return configs;
+}
 
 export async function getAllArticles(): Promise<Article[]> {
   const articles: Article[] = [];
@@ -32,7 +78,8 @@ export async function getAllArticles(): Promise<Article[]> {
       if (stat.isDirectory()) {
         // Use directory name as category
         readDirectory(fullPath, item);
-      } else if (item.endsWith(".md")) {
+      } else if (item.endsWith(".md") && !item.startsWith("_")) {
+        // Skip files that start with underscore (like _category.md)
         const fileContents = fs.readFileSync(fullPath, "utf8");
         const { data, content } = matter(fileContents);
 
@@ -40,6 +87,7 @@ export async function getAllArticles(): Promise<Article[]> {
           .use(remarkGfm)
           .use(remarkRehype, { allowDangerousHtml: true })
           .use(rehypeRaw)
+          .use(rehypeSlug)
           .use(rehypeStringify)
           .processSync(content);
 
@@ -65,37 +113,51 @@ export async function getArticleBySlug(slug: string): Promise<Article | null> {
 }
 
 export function getCategories(articles: Article[]) {
+  const categoryConfigs = getCategoryConfigs();
   const categoryMap = new Map<
     string,
     {
       name: string;
+      title: string;
       slug: string;
       description: string;
       count: number;
       articles: Array<{ slug: string; title: string; order: number }>;
       order: number;
+      emoji?: string;
     }
   >();
 
   articles.forEach((article) => {
     if (!categoryMap.has(article.category)) {
-      categoryMap.set(article.category, {
-        name: article.category,
-        slug: article.category.toLowerCase().replace(/\s+/g, "-"),
-        description: `Learn more about ${article.category.toLowerCase()}`,
-        count: 0,
-        articles: [],
-        order: CategoryOrder[article.category] || 999, // Default high number for undefined categories
-      });
+      const config =
+        categoryConfigs.get(
+          article.category.toLowerCase().replace(/\s+/g, "-")
+        ) || categoryConfigs.get(article.category);
+
+      if (config) {
+        categoryMap.set(article.category, {
+          name: config.name,
+          title: config.title,
+          slug: article.category.toLowerCase().replace(/\s+/g, "-"),
+          description: config.description,
+          count: 0,
+          articles: [],
+          order: config.order,
+          emoji: config.emoji,
+        });
+      }
     }
 
-    const category = categoryMap.get(article.category)!;
-    category.count++;
-    category.articles.push({
-      slug: article.slug,
-      title: article.title,
-      order: article.order,
-    });
+    const category = categoryMap.get(article.category);
+    if (category) {
+      category.count++;
+      category.articles.push({
+        slug: article.slug,
+        title: article.title,
+        order: article.order,
+      });
+    }
   });
 
   // Sort categories by order, then by name

@@ -11,7 +11,7 @@ interface HeroSearchProps {
 export function HeroSearch({ articles, breadcrumbItems }: HeroSearchProps) {
   return (
     <div
-      className="bg-gradient-to-br"
+      className="bg-gradient-to-br pb-20 -mb-28"
       style={{
         backgroundImage: `linear-gradient(to bottom right, var(--gradient-from), var(--gradient-via), var(--gradient-to))`,
       }}

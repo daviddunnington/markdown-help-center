@@ -42,7 +42,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     <div className="min-h-screen bg-gray-100">
       <HeroSearch articles={articles} breadcrumbItems={breadcrumbItems} />
       <main className="container mx-auto max-w-4xl px-4 py-8">
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 md:p-6">
           <div className="mb-6">
             <h2 className="text-2xl font-bold text-gray-900 mb-2">
               {category.name}

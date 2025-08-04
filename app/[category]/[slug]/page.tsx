@@ -68,7 +68,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
       <HeroSearch articles={allArticles} breadcrumbItems={breadcrumbItems} />
 
       <main className="container mx-auto max-w-4xl px-4 py-8">
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-8">
+        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 md:p-6">
           <ArticleContent article={article} />
         </div>
       </main>

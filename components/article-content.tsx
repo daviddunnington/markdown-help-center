@@ -1,6 +1,5 @@
 "use client";
 import { Calendar, Printer } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import type { Article } from "@/lib/content";
@@ -35,43 +34,12 @@ export function ArticleContent({ article }: ArticleContentProps) {
             <span>Print</span>
           </Button>
         </div>
-
-        <Card className="mb-8 gap-2">
-          <CardHeader className="pb-4">
-            <div className="flex items-center gap-2">
-              <div className="w-5 h-5 bg-gray-300 rounded flex items-center justify-center">
-                <span className="text-xs font-bold text-gray-600">=</span>
-              </div>
-              <CardTitle className="text-sm uppercase tracking-wide text-gray-700">
-                Table of Contents
-              </CardTitle>
-            </div>
-          </CardHeader>
-          <CardContent className="pt-0">
-            <div className="space-y-2 text-sm">
-              <Button
-                variant="link"
-                className="h-auto p-0 text-gray-600 hover:text-primary justify-start"
-                asChild
-              >
-                <a href="#why-choose">Why choose MarkDown Help Center?</a>
-              </Button>
-              <Button
-                variant="link"
-                className="h-auto p-0 text-gray-600 hover:text-primary justify-start ml-4"
-                asChild
-              >
-                <a href="#need-help">{`Need More Help? I'm Here for You`}</a>
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
       </div>
 
       <Separator className="mb-8" />
 
       <div
-        className="prose"
+        className="prose prose-lg max-w-none"
         dangerouslySetInnerHTML={{ __html: article.content }}
       />
     </div>

@@ -11,7 +11,7 @@ Check out the live demo: **[https://markdown-help-center.vercel.app/](https://ma
 - 📝 **Markdown-Based Content** - Write articles in simple Markdown format
 - 🎨 **Beautiful UI** - Clean, responsive design with dark/light mode support
 - 🔍 **Smart Search** - Fast client-side search across all articles
-- 📁 **Category Organization** - Organize content into categories with custom ordering
+- 📁 **Category Organization** - Organize content into categories with custom ordering and emoji icons
 - ⚡ **Fast Performance** - Built with Next.js for optimal speed and SEO
 - 🎯 **Easy Customization** - Configure branding, colors, and layout through config files
 - 📱 **Mobile Responsive** - Works perfectly on all devices
@@ -133,8 +133,39 @@ Open [http://localhost:3000](http://localhost:3000) to see your help center.
 ### Creating New Categories
 
 1. Create a new folder in the `content` directory
-2. Add the category to `lib/config.ts` with desired ordering
+2. Create a `_category.md` file in the folder with the following frontmatter:
+   ```markdown
+   ---
+   title: Category Display Title
+   name: Category Name
+   description: A brief description of this category
+   order: 1
+   emoji: 🚀
+   ---
+   ```
 3. Add articles to the new category folder
+
+**Required Category Fields:**
+
+- **title**: Display title for the category
+- **name**: Internal name for navigation
+- **description**: Brief description for the category card
+- **order**: Numeric order for sorting (lower numbers first)
+- **emoji**: Emoji icon displayed on the category card
+
+**Example Category Structure:**
+
+```
+content/
+├── getting-started/
+│   ├── _category.md          # Category configuration
+│   ├── setup-guide.md
+│   └── first-steps.md
+├── advanced-features/
+│   ├── _category.md          # Category configuration
+│   ├── api-integration.md
+│   └── customization.md
+```
 
 ### Supported Markdown Features
 
@@ -149,7 +180,7 @@ Open [http://localhost:3000](http://localhost:3000) to see your help center.
 The help center is highly customizable:
 
 - **Branding**: Update logo, colors, and site name in config
-- **Categories**: Define custom category order and descriptions
+- **Categories**: Configure categories using `_category.md` frontmatter files in each category folder
 - **Styling**: Modify Tailwind CSS classes and components
 - **Layout**: Customize the overall layout and navigation
 

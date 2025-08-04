@@ -61,7 +61,7 @@ export function ArticleContent({ article }: ArticleContentProps) {
                 className="h-auto p-0 text-gray-600 hover:text-primary justify-start ml-4"
                 asChild
               >
-                <a href="#need-help">Need More Help? I'm Here for You</a>
+                <a href="#need-help">{`Need More Help? I'm Here for You`}</a>
               </Button>
             </div>
           </CardContent>

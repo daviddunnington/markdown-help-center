@@ -1,13 +1,20 @@
 import Link from "next/link";
-import { ExternalLink, Github } from "lucide-react";
+import { ExternalLink, Hash } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/lib/config";
 import * as LucideIcons from "lucide-react";
+import { type LucideIcon } from "lucide-react";
 
 export function Header() {
-  // Get the icon component dynamically
-  const IconComponent =
-    (LucideIcons as any)[siteConfig.logo.icon] || LucideIcons.Hash;
+  // Get the icon component dynamically with proper type safety
+  const getIconComponent = (iconName: string): LucideIcon => {
+    const icon = (LucideIcons as unknown as Record<string, LucideIcon>)[
+      iconName
+    ];
+    return typeof icon === "function" ? icon : Hash;
+  };
+
+  const IconComponent = getIconComponent(siteConfig.logo.icon);
 
   return (
     <header className="border-b border-white/30">
@@ -59,21 +66,6 @@ export function Header() {
                 asChild
               >
                 <a href={siteConfig.links.twitter}>Twitter</a>
-              </Button>
-            )}
-            {siteConfig.links.github && (
-              <Button
-                variant="ghost"
-                size="sm"
-                className="text-white/80 hover:text-white hover:bg-white/20"
-                asChild
-              >
-                <a
-                  href={siteConfig.links.github}
-                  className="flex items-center gap-1"
-                >
-                  <Github className="w-4 h-4" />
-                </a>
               </Button>
             )}
           </nav>

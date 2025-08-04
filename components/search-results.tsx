@@ -57,7 +57,7 @@ export function SearchResults({ articles, searchQuery }: SearchResultsProps) {
       ) : (
         <CardContent className="p-6 text-center text-gray-500">
           <FileText className="w-8 h-8 mx-auto mb-2 text-gray-300" />
-          <p>No articles found for "{searchQuery}"</p>
+          <p>{`No articles found for "${searchQuery}"`}</p>
         </CardContent>
       )}
     </Card>

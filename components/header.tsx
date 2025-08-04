@@ -19,7 +19,7 @@ export function Header() {
   return (
     <header className="border-b border-white/30">
       <div className="container max-w-4xl mx-auto px-4 py-4">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between items-center gap-4">
           <Link href="/" className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-lg flex items-center justify-center">
               <IconComponent className="text-white font-bold text-sm" />

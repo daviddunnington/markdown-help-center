@@ -157,6 +157,7 @@ The help center is highly customizable:
 
 - **Next.js 14** - React framework with App Router
 - **TypeScript** - Type-safe development
+- **shadcn/ui** - Accessible and customizable React component library built with Tailwind CSS
 - **Tailwind CSS** - Utility-first CSS framework
 - **Remark/Rehype** - Markdown processing
 - **Lucide Icons** - Beautiful icon set

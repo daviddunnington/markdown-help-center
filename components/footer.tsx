@@ -1,5 +1,5 @@
 import { siteConfig } from "@/lib/config";
-import { Github, Twitter, ExternalLink } from "lucide-react";
+import { Github, ExternalLink, Linkedin } from "lucide-react";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -44,15 +44,15 @@ export function Footer() {
                   <Github size={20} />
                 </a>
               )}
-              {siteConfig.links.twitter && (
+              {siteConfig.links.linkedin && (
                 <a
-                  href={siteConfig.links.twitter}
+                  href={siteConfig.links.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-gray-600 hover:text-gray-900 transition-colors"
-                  aria-label="Visit our Twitter"
+                  aria-label="Visit our LinkedIn"
                 >
-                  <Twitter size={20} />
+                  <Linkedin size={20} />
                 </a>
               )}
             </div>

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ExternalLink, Hash, Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/lib/config";
@@ -7,7 +8,8 @@ import { type LucideIcon } from "lucide-react";
 
 export function Header() {
   // Get the icon component dynamically with proper type safety
-  const getIconComponent = (iconName: string): LucideIcon => {
+  const getIconComponent = (iconName?: string): LucideIcon => {
+    if (!iconName) return Hash;
     const icon = (LucideIcons as unknown as Record<string, LucideIcon>)[
       iconName
     ];
@@ -21,11 +23,27 @@ export function Header() {
       <div className="container max-w-4xl mx-auto px-4 py-4 md:px-0">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between items-center gap-4">
           <Link href="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 rounded-lg flex items-center justify-center">
+            {siteConfig.logo.image ? (
+              <div className="w-40 rounded-lg flex items-center justify-center">
+                <Image
+                  src={siteConfig.logo.image}
+                  alt={siteConfig.logo.alt}
+                  width={48}
+                  height={48}
+                  className="w-full h-full object-contain"
+                  style={{ width: "100%", height: "100%" }}
+                />
+              </div>
+            ) : (
               <IconComponent className="text-white font-bold text-sm" />
-            </div>
+            )}
+
             <div className="text-white">
-              <span className="font-semibold">{siteConfig.siteName}</span>
+              {siteConfig.logo.image ? (
+                <span className="text-white/80">|</span>
+              ) : (
+                <span className="font-semibold">{siteConfig.siteName}</span>
+              )}
               <span className="text-white/80 ml-2">
                 {siteConfig.siteDescription}
               </span>
@@ -58,14 +76,14 @@ export function Header() {
                 <a href={siteConfig.links.changelog}>Changelog</a>
               </Button>
             )}
-            {siteConfig.links.twitter && (
+            {siteConfig.links.linkedin && (
               <Button
                 variant="ghost"
                 size="sm"
                 className="text-white/80 hover:text-white hover:bg-white/20"
                 asChild
               >
-                <a href={siteConfig.links.twitter}>Twitter</a>
+                <a href={siteConfig.links.linkedin}>LinkedIn</a>
               </Button>
             )}
             {siteConfig.links.github && (

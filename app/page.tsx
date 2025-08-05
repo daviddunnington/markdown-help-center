@@ -1,6 +1,6 @@
 import { getAllArticles, getCategories } from "@/lib/content";
 import { CategoryGrid } from "@/components/category-grid";
-import { HeroSearch } from "@/components/hero-search";
+import { BreadcrumbSetter } from "@/components/breadcrumb-setter";
 import { siteConfig } from "@/lib/config";
 import type { Metadata } from "next";
 
@@ -56,10 +56,7 @@ export default async function HomePage() {
 
   return (
     <>
-      <HeroSearch
-        articles={articles}
-        breadcrumbItems={[{ label: "All Categories", href: "/" }]}
-      />
+      <BreadcrumbSetter items={[{ label: "All Categories", href: "/" }]} />
       <main className="container mx-auto max-w-4xl px-4 py-8">
         <CategoryGrid categories={categories} />
       </main>

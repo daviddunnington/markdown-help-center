@@ -1,7 +1,7 @@
 import { getAllArticles, getCategories } from "@/lib/content";
 import { ArticleList } from "@/components/article-list";
 import { notFound } from "next/navigation";
-import { HeroSearch } from "@/components/hero-search";
+import { BreadcrumbSetter } from "@/components/breadcrumb-setter";
 
 interface CategoryPageProps {
   params: Promise<{
@@ -40,7 +40,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
   return (
     <>
-      <HeroSearch articles={articles} breadcrumbItems={breadcrumbItems} />
+      <BreadcrumbSetter items={breadcrumbItems} />
       <main className="container mx-auto max-w-4xl px-4 py-8">
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 md:p-6">
           <div className="mb-6">

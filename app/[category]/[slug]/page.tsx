@@ -1,7 +1,7 @@
 import { getArticleBySlug, getAllArticles, getCategories } from "@/lib/content";
 import { ArticleContent } from "@/components/article-content";
 import { notFound } from "next/navigation";
-import { HeroSearch } from "@/components/hero-search";
+import { BreadcrumbSetter } from "@/components/breadcrumb-setter";
 
 interface ArticlePageProps {
   params: Promise<{
@@ -65,7 +65,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
   return (
     <>
-      <HeroSearch articles={allArticles} breadcrumbItems={breadcrumbItems} />
+      <BreadcrumbSetter items={breadcrumbItems} />
 
       <main className="container mx-auto max-w-4xl px-4 py-8">
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 md:p-6">

@@ -130,21 +130,21 @@ export function getCategories(articles: Article[]) {
 
   articles.forEach((article) => {
     if (!categoryMap.has(article.category)) {
-      const config =
+      const catConfig =
         categoryConfigs.get(
           article.category.toLowerCase().replace(/\s+/g, "-")
         ) || categoryConfigs.get(article.category);
 
-      if (config) {
+      if (catConfig) {
         categoryMap.set(article.category, {
-          name: config.name,
-          title: config.title,
+          name: catConfig.name,
+          title: catConfig.title,
           slug: article.category.toLowerCase().replace(/\s+/g, "-"),
-          description: config.description,
+          description: catConfig.description,
           count: 0,
           articles: [],
-          order: config.order,
-          emoji: config.emoji,
+          order: catConfig.order,
+          emoji: catConfig.emoji,
         });
       }
     }

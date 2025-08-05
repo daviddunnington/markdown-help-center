@@ -55,7 +55,7 @@ export default async function HomePage() {
   const categories = getCategories(articles);
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <>
       <HeroSearch
         articles={articles}
         breadcrumbItems={[{ label: "All Categories", href: "/" }]}
@@ -63,6 +63,6 @@ export default async function HomePage() {
       <main className="container mx-auto max-w-4xl px-4 py-8">
         <CategoryGrid categories={categories} />
       </main>
-    </div>
+    </>
   );
 }

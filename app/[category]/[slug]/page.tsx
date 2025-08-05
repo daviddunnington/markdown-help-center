@@ -64,7 +64,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <>
       <HeroSearch articles={allArticles} breadcrumbItems={breadcrumbItems} />
 
       <main className="container mx-auto max-w-4xl px-4 py-8">
@@ -72,6 +72,6 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           <ArticleContent article={article} />
         </div>
       </main>
-    </div>
+    </>
   );
 }

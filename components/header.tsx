@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ExternalLink, Hash, Github } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { siteConfig } from "@/lib/config";
 import * as LucideIcons from "lucide-react";
 import { type LucideIcon } from "lucide-react";
@@ -51,6 +52,7 @@ export function Header() {
           </Link>
 
           <nav className="flex items-center gap-2">
+            <ThemeToggle />
             {siteConfig.links.website && (
               <Button
                 variant="ghost"

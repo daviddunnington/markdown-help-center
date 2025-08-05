@@ -12,9 +12,7 @@ export function ArticleContent({ article }: ArticleContentProps) {
   return (
     <div className="max-w-4xl mx-auto">
       <div className="mb-8">
-        <h1 className="text-4xl font-bold text-gray-900 mb-4">
-          {article.title}
-        </h1>
+        <h1 className="text-4xl font-bold mb-4">{article.title}</h1>
         <p className="text-xl text-gray-600 leading-relaxed mb-6">
           {article.description}
         </p>

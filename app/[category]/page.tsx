@@ -42,12 +42,12 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
     <>
       <BreadcrumbSetter items={breadcrumbItems} />
       <main className="container mx-auto max-w-4xl px-4 py-8">
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 md:p-6">
+        <div className="bg-card rounded-lg shadow-sm border border-border p-4 md:p-6">
           <div className="mb-6">
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">
+            <h2 className="text-2xl font-bold text-foreground mb-2">
               {category.name}
             </h2>
-            <p className="text-gray-600">{category.description}</p>
+            <p className="text-muted-foreground">{category.description}</p>
           </div>
           <ArticleList
             articles={categoryArticles}

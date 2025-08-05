@@ -4,6 +4,7 @@ import "./globals.css";
 import { Footer } from "@/components/footer";
 import { BreadcrumbProvider } from "@/lib/breadcrumb-context";
 import { ClientHeroSearch } from "@/components/client-hero-search";
+import { ThemeProvider } from "@/components/theme-provider";
 import { getAllArticles } from "@/lib/content";
 
 const geistSans = Geist({
@@ -29,17 +30,24 @@ export default async function RootLayout({
   const allArticles = await getAllArticles();
 
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <BreadcrumbProvider>
-          <div className="min-h-screen bg-gray-100">
-            <ClientHeroSearch articles={allArticles} />
-            {children}
-          </div>
-        </BreadcrumbProvider>
-        <Footer />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <BreadcrumbProvider>
+            <div className="min-h-screen bg-background">
+              <ClientHeroSearch articles={allArticles} />
+              {children}
+            </div>
+          </BreadcrumbProvider>
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );

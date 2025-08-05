@@ -77,6 +77,10 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.541 0.281 293.009);
+
+  --gradient-from: oklch(25.959% 0.09354 295.760);
+  --gradient-via: oklch(25.959% 0.09354 295.717);
+  --gradient-to: oklch(25.959% 0.09354 295.142);
 }
 
 /* Add @theme inline directive */

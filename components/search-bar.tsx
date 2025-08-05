@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { SearchResults } from "./search-results";
@@ -12,10 +12,46 @@ interface SearchBarProps {
 
 export function SearchBar({ articles }: SearchBarProps) {
   const [searchQuery, setSearchQuery] = useState("");
+  const searchRef = useRef<HTMLDivElement>(null);
   const isSearching = searchQuery.length > 0;
 
+  const handleSearchResultSelect = () => {
+    setSearchQuery("");
+  };
+
+  const clearSearch = () => {
+    setSearchQuery("");
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        searchRef.current &&
+        !searchRef.current.contains(event.target as Node)
+      ) {
+        clearSearch();
+      }
+    };
+
+    const handleEscapeKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        clearSearch();
+      }
+    };
+
+    if (isSearching) {
+      document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener("keydown", handleEscapeKey);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleEscapeKey);
+    };
+  }, [isSearching]);
+
   return (
-    <div className="relative max-w-2xl mx-auto">
+    <div ref={searchRef} className="relative max-w-2xl mx-auto">
       <div className="relative">
         <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white w-5 h-5" />
         <Input
@@ -29,7 +65,11 @@ export function SearchBar({ articles }: SearchBarProps) {
 
       {isSearching && (
         <div className="absolute top-full left-0 right-0 mt-2 z-50">
-          <SearchResults articles={articles} searchQuery={searchQuery} />
+          <SearchResults
+            articles={articles}
+            searchQuery={searchQuery}
+            onSelect={handleSearchResultSelect}
+          />
         </div>
       )}
     </div>

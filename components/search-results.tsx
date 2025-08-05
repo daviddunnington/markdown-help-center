@@ -10,9 +10,14 @@ import type { Article } from "@/lib/content";
 interface SearchResultsProps {
   articles: Article[];
   searchQuery: string;
+  onSelect?: () => void;
 }
 
-export function SearchResults({ articles, searchQuery }: SearchResultsProps) {
+export function SearchResults({
+  articles,
+  searchQuery,
+  onSelect,
+}: SearchResultsProps) {
   if (!searchQuery) return null;
 
   const fuse = new Fuse(articles, {
@@ -35,6 +40,7 @@ export function SearchResults({ articles, searchQuery }: SearchResultsProps) {
               <Link
                 key={article.slug}
                 href={`/${categorySlug}/${article.slug}`}
+                onClick={onSelect}
               >
                 <div className="flex items-start gap-3 p-3 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors cursor-pointer">
                   <FileText className="w-5 h-5 text-gray-400 mt-0.5 flex-shrink-0" />

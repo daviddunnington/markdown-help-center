@@ -40,11 +40,11 @@ export const siteConfig: SiteConfig = {
   },
   auth: {
     // Only NEXT_PUBLIC_AUTH_ENABLED is exposed to browser (for UI logic)
-    enabled: process.env.NEXT_PUBLIC_AUTH_ENABLED === 'true',
+    enabled: process.env.NEXT_PUBLIC_AUTH_ENABLED === "true",
     protect: {
       // These are server-only - not exposed to browser
-      content: process.env.AUTH_PROTECT_CONTENT === 'true',
-      editor: process.env.AUTH_PROTECT_EDITOR !== 'false',
+      content: process.env.AUTH_PROTECT_CONTENT === "true",
+      editor: process.env.AUTH_PROTECT_EDITOR === "true",
     },
     clerk: {
       publishableKey: process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY, // Safe to be public

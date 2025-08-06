@@ -35,7 +35,7 @@ export async function generateStaticParams() {
 
 export default async function ArticlePage({ params }: ArticlePageProps) {
   const { category: categoryParam, slug } = await params;
-  const article = await getArticleBySlug(slug);
+  const article = await getArticleBySlug(categoryParam, slug);
   const allArticles = await getAllArticles();
   const categories = getCategories(allArticles);
 
@@ -59,7 +59,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
 
   const breadcrumbItems = [
     { label: "All Categories", href: "/" },
-    { label: article.category, href: `/${categoryParam}` },
+    { label: category.title, href: `/${categoryParam}` },
     { label: article.title, href: `/${categoryParam}/${slug}` },
   ];
 

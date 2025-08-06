@@ -6,12 +6,15 @@ A modern, fast, and customizable help center built with Next.js shadcn and TypeS
 
 Check out the live demo: **[https://markdown-help-center.vercel.app/](https://markdown-help-center.vercel.app/)**
 
+![Markdown Help Center Screenshot](/public/images/markdown-help-center.png)
+
 ## Features
 
 - 📝 **Markdown-Based Content** - Write articles in simple Markdown format
 - 🎨 **Beautiful UI** - Clean, responsive design with dark/light mode support
 - 🔍 **Smart Search** - Fast client-side search across all articles
 - 📁 **Category Organization** - Organize content into categories with custom ordering and emoji icons
+- 🏷️ **Article Tags** - Group related articles with tags for better organization
 - ⚡ **Fast Performance** - Built with Next.js for optimal speed and SEO
 - 🎯 **Easy Customization** - Configure branding, colors, and layout through config files
 - 📱 **Mobile Responsive** - Works perfectly on all devices
@@ -66,6 +69,7 @@ description: Brief description of the article
 category: Getting Started
 slug: your-article-slug
 order: 1
+tag: "beginner"
 ---
 
 # Your Article Content
@@ -80,6 +84,7 @@ Write your content here using standard Markdown syntax.
 - `category`: Category name that matches your folder structure (required)
 - `slug`: URL-friendly identifier for the article (required)
 - `order`: Number to control the display order within the category (lower numbers appear first)
+- `tag`: Optional tag to group related articles together (e.g., "beginner", "advanced", "feature")
 
 ### 3. Configure Your Help Center
 
@@ -166,6 +171,62 @@ content/
 │   ├── api-integration.md
 │   └── customization.md
 ```
+
+## Article Tags
+
+Tags provide an additional way to group and organize related articles within categories. When articles have tags, they are automatically grouped together in the UI for better organization.
+
+![Article Tags Example](/images/tags.png)
+
+### How Tags Work
+
+- Add a `tag` field to any article's frontmatter
+- Articles with the same tag are automatically grouped together
+- Tagged articles appear under their tag heading
+- Untagged articles appear separately at the bottom
+- Tags are displayed as badges on article cards for easy identification
+
+### Adding Tags to Articles
+
+Simply add a `tag` field to your article's frontmatter:
+
+```markdown
+---
+title: Getting Started Guide
+description: Learn how to set up your help center
+category: Getting Started
+slug: setup-guide
+order: 1
+tag: "installation"
+---
+
+# Your article content here
+```
+
+### Tag Examples
+
+Common tag patterns include:
+
+- **Difficulty levels**: `"beginner"`, `"intermediate"`, `"advanced"`
+- **Content types**: `"tutorial"`, `"reference"`, `"troubleshooting"`
+- **Features**: `"search"`, `"customization"`, `"api"`
+- **Audience**: `"developers"`, `"administrators"`, `"end-users"`
+
+### Tag Display
+
+When articles in a category have tags:
+
+1. **Grouped Display**: Articles are grouped under their respective tag headings
+2. **Badge Display**: Each article shows its tag as a colored badge
+3. **Alphabetical Sorting**: Tag groups are sorted alphabetically
+4. **Article Sorting**: Within each tag group, articles are sorted by their `order` field, then alphabetically
+
+### Best Practices
+
+- Use consistent tag naming (lowercase, descriptive)
+- Keep tag names short and meaningful
+- Use tags sparingly - not every article needs a tag
+- Consider your audience when choosing tag names
 
 ### Supported Markdown Features
 

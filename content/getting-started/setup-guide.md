@@ -4,6 +4,7 @@ description: Step-by-step guide to set up and configure your help center from sc
 category: Getting Started
 slug: setup-guide
 order: 3
+tag: "installation"
 ---
 
 # Complete Setup Guide

@@ -4,6 +4,7 @@ description: A comprehensive test of all markdown features
 category: Getting Started
 slug: complete-markdown-test
 order: 4
+tag: "advanced"
 ---
 
 # Complete Markdown Feature Test

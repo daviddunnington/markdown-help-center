@@ -1,9 +1,10 @@
 ---
 title: Why do I need a knowledge base?
 description: Learn about why a knowledge base is essential for your company
-category: Getting Started
+category: General Info
 slug: why-knowledge-base
 order: 2
+tag: "introduction"
 ---
 
 # Why do I need a knowledge base?

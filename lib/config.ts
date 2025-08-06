@@ -2,8 +2,8 @@ export interface SiteConfig {
   siteName: string;
   siteDescription: string;
   logo: {
-    icon?: string; // Lucide icon name or path to image
-    image?: string; // Path to image
+    icon?: string;
+    image?: string;
     alt: string;
   };
   links: {
@@ -32,24 +32,23 @@ export const siteConfig: SiteConfig = {
   siteDescription: "Help Center",
   logo: {
     icon: "Hash",
-    //image: "/images/logo.svg",
     alt: "Help Center Logo",
   },
   links: {
-    //website: "https://your-website.com",
-    //changelog: "/changelog",
     linkedin: "https://www.linkedin.com/in/david-j-dunnington/",
     github: "https://github.com/daviddunnington/",
   },
   auth: {
-    enabled: process.env.NEXT_PUBLIC_AUTH_ENABLED === 'true', // Set via environment variable
+    // Only NEXT_PUBLIC_AUTH_ENABLED is exposed to browser (for UI logic)
+    enabled: process.env.NEXT_PUBLIC_AUTH_ENABLED === 'true',
     protect: {
-      content: process.env.NEXT_PUBLIC_AUTH_PROTECT_CONTENT === 'true', // true = content requires auth
-      editor: process.env.NEXT_PUBLIC_AUTH_PROTECT_EDITOR !== 'false', // true = editor requires auth (default true)
+      // These are server-only - not exposed to browser
+      content: process.env.AUTH_PROTECT_CONTENT === 'true',
+      editor: process.env.AUTH_PROTECT_EDITOR !== 'false',
     },
     clerk: {
-      publishableKey: process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,
-      secretKey: process.env.CLERK_SECRET_KEY,
+      publishableKey: process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY, // Safe to be public
+      secretKey: process.env.CLERK_SECRET_KEY, // Already server-only
     },
   },
 };

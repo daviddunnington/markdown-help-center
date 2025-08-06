@@ -19,7 +19,6 @@ export interface Article {
 }
 
 export interface Category {
-  name: string;
   title: string;
   slug: string;
   description: string;
@@ -158,11 +157,12 @@ export function getCategories(articles: Article[]): Category[] {
 
   return Array.from(categoryMap.entries()).map(
     ([slug, { count, title, description, emoji, articles }]) => ({
-      name: slug
-        .split("-")
-        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-        .join(" "),
-      title,
+      title:
+        title ||
+        slug
+          .split("-")
+          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(" "),
       slug,
       description: description,
       count,
@@ -197,4 +197,50 @@ export function groupArticlesByTags(articles: Article[]): TagGroup[] {
       }),
     }))
     .sort((a, b) => a.tag.localeCompare(b.tag));
+}
+
+export function getAvailableCategories(): string[] {
+  const contentDir = path.join(process.cwd(), "content");
+  try {
+    const dirs = fs.readdirSync(contentDir);
+    return dirs.filter((dir) => {
+      const dirPath = path.join(contentDir, dir);
+      return fs.statSync(dirPath).isDirectory();
+    });
+  } catch (error) {
+    console.error("Error reading categories:", error);
+    return [];
+  }
+}
+
+export function getUsedTags(): string[] {
+  const contentDir = path.join(process.cwd(), "content");
+  const tags = new Set<string>();
+
+  function readDirectory(dir: string) {
+    const files = fs.readdirSync(dir);
+
+    for (const file of files) {
+      const filePath = path.join(dir, file);
+      const stat = fs.statSync(filePath);
+
+      if (stat.isDirectory()) {
+        readDirectory(filePath);
+      } else if (file.endsWith(".md") && !file.startsWith("_")) {
+        const fileContent = fs.readFileSync(filePath, "utf8");
+        const { data } = matter(fileContent);
+        if (data.tag) {
+          tags.add(data.tag);
+        }
+      }
+    }
+  }
+
+  try {
+    readDirectory(contentDir);
+  } catch (error) {
+    console.error("Error reading tags:", error);
+  }
+
+  return Array.from(tags).sort();
 }

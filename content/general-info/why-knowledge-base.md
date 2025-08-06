@@ -4,7 +4,7 @@ description: Learn about why a knowledge base is essential for your company
 category: General Info
 slug: why-knowledge-base
 order: 2
-tag: "introduction"
+tag: "introduction to new stuff"
 ---
 
 # Why do I need a knowledge base?

@@ -35,7 +35,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
 
   const breadcrumbItems = [
     { label: "All Categories", href: "/" },
-    { label: category.name, href: `/${categoryParam}` },
+    { label: category.title, href: `/${categoryParam}` },
   ];
 
   return (
@@ -45,7 +45,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         <div className="bg-card rounded-lg shadow-sm border border-border p-4 md:p-6">
           <div className="mb-6">
             <h2 className="text-2xl font-bold text-foreground mb-2">
-              {category.name}
+              {category.title}
             </h2>
             <p className="text-muted-foreground">{category.description}</p>
           </div>

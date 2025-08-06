@@ -52,6 +52,16 @@ export function Header() {
           </Link>
 
           <nav className="flex items-center gap-2">
+            <Button
+              variant="ghost"
+              size="sm"
+              className="text-white/80 hover:text-white hover:bg-white/20"
+              asChild
+            >
+              <Link href="/editor" className="flex items-center gap-1">
+                ✏️ Editor
+              </Link>
+            </Button>
             <ThemeToggle />
             {siteConfig.links.website && (
               <Button

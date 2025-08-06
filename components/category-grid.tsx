@@ -10,7 +10,6 @@ import { Badge } from "@/components/ui/badge";
 
 interface CategoryGridProps {
   categories: Array<{
-    name: string;
     title: string;
     slug: string;
     description: string;
@@ -25,7 +24,7 @@ export function CategoryGrid({ categories }: CategoryGridProps) {
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       {categories.map((category) => {
         return (
-          <Link key={category.name} href={`/${category.slug}`}>
+          <Link key={category.title} href={`/${category.slug}`}>
             <Card className="h-full gap-2 hover:shadow-md transition-all duration-200 group cursor-pointer">
               <CardHeader>
                 <div className="flex items-start gap-4">

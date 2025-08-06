@@ -3,6 +3,8 @@ import { NextResponse } from "next/server";
 import { siteConfig } from "./lib/config";
 
 // Define which routes should be protected
+
+// No need for unused middleware variable or assignment
 const isProtectedRoute = createRouteMatcher(["/editor(.*)"]);
 
 // Define content routes that might be protected based on config

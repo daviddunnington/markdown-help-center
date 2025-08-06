@@ -92,10 +92,10 @@ export async function getArticleBySlug(
 export function getCategories(articles: Article[]): Category[] {
   const categoryMap = new Map<
     string,
-    { 
-      count: number; 
-      title: string; 
-      description: string; 
+    {
+      count: number;
+      title: string;
+      description: string;
       emoji?: string;
       articles: Array<{ slug: string; title: string }>;
     }
@@ -149,7 +149,10 @@ export function getCategories(articles: Article[]): Category[] {
       title: metadata.title,
       description: metadata.description,
       emoji: metadata.emoji,
-      articles: [...current.articles, { slug: article.slug, title: article.title }],
+      articles: [
+        ...current.articles,
+        { slug: article.slug, title: article.title },
+      ],
     });
   });
 

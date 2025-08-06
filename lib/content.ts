@@ -24,6 +24,7 @@ export interface Category {
   slug: string;
   description: string;
   count: number;
+  articles: Array<{ slug: string; title: string }>;
   emoji?: string;
 }
 
@@ -91,7 +92,13 @@ export async function getArticleBySlug(
 export function getCategories(articles: Article[]): Category[] {
   const categoryMap = new Map<
     string,
-    { count: number; title: string; description: string; emoji?: string }
+    { 
+      count: number; 
+      title: string; 
+      description: string; 
+      emoji?: string;
+      articles: Array<{ slug: string; title: string }>;
+    }
   >();
   const contentDir = path.join(process.cwd(), "content");
 
@@ -129,6 +136,7 @@ export function getCategories(articles: Article[]): Category[] {
       title: "",
       description: "",
       emoji: undefined,
+      articles: [],
     };
     const metadata = categoryMetadata[category] || {
       title: "",
@@ -141,11 +149,12 @@ export function getCategories(articles: Article[]): Category[] {
       title: metadata.title,
       description: metadata.description,
       emoji: metadata.emoji,
+      articles: [...current.articles, { slug: article.slug, title: article.title }],
     });
   });
 
   return Array.from(categoryMap.entries()).map(
-    ([slug, { count, title, description, emoji }]) => ({
+    ([slug, { count, title, description, emoji, articles }]) => ({
       name: slug
         .split("-")
         .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
@@ -154,6 +163,7 @@ export function getCategories(articles: Article[]): Category[] {
       slug,
       description: description,
       count,
+      articles,
       emoji,
     })
   );

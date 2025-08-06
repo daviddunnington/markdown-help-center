@@ -340,6 +340,7 @@ The help center supports optional authentication via Clerk. When enabled, you ca
    ```
 
 4. **Configure Authentication**: Update `lib/config.ts`:
+
    ```typescript
    export const siteConfig: SiteConfig = {
      // ...existing config
@@ -353,6 +354,31 @@ The help center supports optional authentication via Clerk. When enabled, you ca
      },
    };
    ```
+
+5. **Swap Middleware Files**: Due to Vercel deployment constraints with conditional imports, authentication requires swapping middleware files:
+
+   ```bash
+   # Enable authentication
+   mv middleware.ts basicMiddleware.ts
+   mv exampleAuthMiddleware.ts middleware.ts
+   ```
+
+   To disable authentication later:
+
+   ```bash
+   # Disable authentication
+   mv middleware.ts exampleAuthMiddleware.ts
+   mv basicMiddleware.ts middleware.ts
+   ```
+
+### Middleware Files Explained
+
+The project includes two middleware files to handle authentication states:
+
+- **`middleware.ts`** (current): Simple pass-through middleware for when auth is disabled
+- **`exampleAuthMiddleware.ts`**: Full Clerk authentication middleware with route protection
+
+This file-swapping approach prevents Vercel build issues that occur when trying to conditionally import Clerk modules in middleware. When authentication is disabled, no Clerk code is imported, avoiding dependency errors during deployment.
 
 ### Authentication Features
 

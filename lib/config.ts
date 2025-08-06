@@ -42,10 +42,10 @@ export const siteConfig: SiteConfig = {
     github: "https://github.com/daviddunnington/",
   },
   auth: {
-    enabled: false, // Set to false to disable auth everywhere
+    enabled: process.env.NEXT_PUBLIC_AUTH_ENABLED === 'true', // Set via environment variable
     protect: {
-      content: false, // true = content requires auth
-      editor: false, // true = editor requires auth
+      content: process.env.NEXT_PUBLIC_AUTH_PROTECT_CONTENT === 'true', // true = content requires auth
+      editor: process.env.NEXT_PUBLIC_AUTH_PROTECT_EDITOR !== 'false', // true = editor requires auth (default true)
     },
     clerk: {
       publishableKey: process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,

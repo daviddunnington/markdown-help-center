@@ -6,6 +6,7 @@ import { ThemeToggle } from "@/components/theme-toggle";
 import { siteConfig } from "@/lib/config";
 import * as LucideIcons from "lucide-react";
 import { type LucideIcon } from "lucide-react";
+import { AuthButton } from "@/components/auth-button";
 
 export function Header() {
   // Get the icon component dynamically with proper type safety
@@ -113,6 +114,7 @@ export function Header() {
                 </a>
               </Button>
             )}
+            {siteConfig.auth.enabled && <AuthButton className="w-8 h-8" />}
           </nav>
         </div>
       </div>

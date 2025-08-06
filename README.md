@@ -245,6 +245,57 @@ The help center is highly customizable:
 - **Styling**: Modify Tailwind CSS classes and components
 - **Layout**: Customize the overall layout and navigation
 
+## Authentication (Optional)
+
+The help center supports optional authentication via Clerk. When enabled, you can control access to content and the editor.
+
+### Setup Authentication
+
+1. **Install Clerk** (already included in dependencies)
+
+2. **Get Clerk Keys**: Sign up at [Clerk.dev](https://clerk.dev) and get your API keys from the dashboard
+
+3. **Environment Variables**: Copy `.env.example` to `.env.local` and add your Clerk keys:
+
+   ```bash
+   NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_...
+   CLERK_SECRET_KEY=sk_test_...
+   ```
+
+4. **Configure Authentication**: Update `lib/config.ts`:
+   ```typescript
+   export const siteConfig: SiteConfig = {
+     // ...existing config
+     auth: {
+       enabled: true, // Set to true to enable auth
+       protect: {
+         content: false, // true = all content requires login
+         editor: true, // true = editor requires login
+       },
+       // Clerk keys are loaded from environment variables
+     },
+   };
+   ```
+
+### Authentication Features
+
+- **Configurable Protection**: Choose what requires authentication (content, editor, or both)
+- **Graceful Fallback**: Works perfectly with auth disabled
+- **User Management**: Built-in user profiles and session management
+- **Sign-in Page**: Automatic redirect to `/sign-in` for protected content
+- **User Button**: Shows user avatar and logout option when authenticated
+
+### Usage Examples
+
+```typescript
+// Protect content conditionally
+if (siteConfig.auth.enabled && siteConfig.auth.protect.content) {
+  // Show sign-in form
+} else {
+  // Show public content
+}
+```
+
 ## Tech Stack
 
 - **Next.js 14** - React framework with App Router

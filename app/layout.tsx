@@ -6,6 +6,8 @@ import { BreadcrumbProvider } from "@/lib/breadcrumb-context";
 import { ClientHeroSearch } from "@/components/client-hero-search";
 import { ThemeProvider } from "@/components/theme-provider";
 import { getAllArticles } from "@/lib/content";
+import { ClerkProvider } from "@clerk/nextjs";
+import { siteConfig } from "@/lib/config";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,7 +31,7 @@ export default async function RootLayout({
 }>) {
   const allArticles = await getAllArticles();
 
-  return (
+  const content = (
     <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
@@ -51,4 +53,14 @@ export default async function RootLayout({
       </body>
     </html>
   );
+
+  if (siteConfig.auth.enabled && siteConfig.auth.clerk.publishableKey) {
+    return (
+      <ClerkProvider publishableKey={siteConfig.auth.clerk.publishableKey}>
+        {content}
+      </ClerkProvider>
+    );
+  }
+
+  return content;
 }

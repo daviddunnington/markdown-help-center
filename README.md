@@ -326,6 +326,13 @@ The help center is highly customisable:
 
 The help center supports optional authentication via Clerk. When enabled, you can control access to content and the editor.
 
+### Demo Credentials
+
+For testing purposes, you can use these demo credentials:
+
+- **Email**: `demouser@markdownhelpcenter.co.uk`
+- **Password**: `demousermarkdown`
+
 ### Setup Authentication
 
 1. **Install Clerk** (already included in dependencies)
@@ -337,22 +344,24 @@ The help center supports optional authentication via Clerk. When enabled, you ca
    ```bash
    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_...
    CLERK_SECRET_KEY=sk_test_...
+
+   # Authentication control
+   NEXT_PUBLIC_AUTH_ENABLED=true          # Controls UI (safe to be public)
+   AUTH_PROTECT_CONTENT=false             # Server-only setting
+   AUTH_PROTECT_EDITOR=true               # Server-only setting
    ```
 
-4. **Configure Authentication**: Update `lib/config.ts`:
+4. **Configure Authentication**: The auth settings are controlled by environment variables:
 
    ```typescript
-   export const siteConfig: SiteConfig = {
-     // ...existing config
-     auth: {
-       enabled: true, // Set to true to enable auth
-       protect: {
-         content: false, // true = all content requires login
-         editor: true, // true = editor requires login
-       },
-       // Clerk keys are loaded from environment variables
+   // In lib/config.ts - automatically reads from environment
+   auth: {
+     enabled: process.env.NEXT_PUBLIC_AUTH_ENABLED === "true",
+     protect: {
+       content: process.env.AUTH_PROTECT_CONTENT === "true",  // Server-only
+       editor: process.env.AUTH_PROTECT_EDITOR === "true",    // Server-only
      },
-   };
+   }
    ```
 
 5. **Swap Middleware Files**: Due to Vercel deployment constraints with conditional imports, authentication requires swapping middleware files:

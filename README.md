@@ -1,6 +1,6 @@
 # MarkDown Help Center - A Markdown-Based Knowledge Base
 
-A modern, fast, and customizable help center built with Next.js shadcn and TypeScript. Create beautiful documentation and knowledge bases using simple Markdown files.
+A modern, fast, and customisable help center built with Next.js shadcn and TypeScript. Create beautiful documentation and knowledge bases using simple Markdown files.
 
 ## 🌐 Demo
 
@@ -13,10 +13,10 @@ Check out the live demo: **[https://markdown-help-center.vercel.app/](https://ma
 - 📝 **Markdown-Based Content** - Write articles in simple Markdown format
 - 🎨 **Beautiful UI** - Clean, responsive design with dark/light mode support
 - 🔍 **Smart Search** - Fast client-side search across all articles
-- 📁 **Category Organization** - Organize content into categories with custom ordering and emoji icons
-- 🏷️ **Article Tags** - Group related articles with tags for better organization
+- 📁 **Category Organisation** - Organise content into categories with custom ordering and emoji icons
+- 🏷️ **Article Tags** - Group related articles with tags for better organisation
 - ⚡ **Fast Performance** - Built with Next.js for optimal speed and SEO
-- 🎯 **Easy Customization** - Configure branding, colors, and layout through config files
+- 🎯 **Easy Customisation** - Configure branding, colors, and layout through config files
 - 📱 **Mobile Responsive** - Works perfectly on all devices
 
 ## Purpose
@@ -46,14 +46,14 @@ yarn install
 
 ### 2. Add Your Content
 
-Create Markdown files in the `content` directory organized by category:
+Create Markdown files in the `content` directory organised by category:
 
 ```
 content/
 ├── getting-started/
 │   ├── why-knowledge-base.md
 │   └── setup-guide.md
-├── customization/
+├── customisation/
 │   ├── branding.md
 │   └── themes.md
 └── general-info/
@@ -88,7 +88,7 @@ Write your content here using standard Markdown syntax.
 
 ### 3. Configure Your Help Center
 
-Edit `lib/config.ts` to customize:
+Edit `lib/config.ts` to customise:
 
 - Site name and branding
 - Category ordering
@@ -120,7 +120,7 @@ yarn dev
 
 Open [http://localhost:3000](http://localhost:3000) to see your help center.
 
-### 6. Customize and Deploy
+### 6. Customise and Deploy
 
 - Modify the design in the components directory
 - Update branding and colors in the config
@@ -169,12 +169,12 @@ content/
 ├── advanced-features/
 │   ├── _category.md          # Category configuration
 │   ├── api-integration.md
-│   └── customization.md
+│   └── customisation.md
 ```
 
 ## Article Tags
 
-Tags provide an additional way to group and organize related articles within categories. When articles have tags, they are automatically grouped together in the UI for better organization.
+Tags provide an additional way to group and organise related articles within categories. When articles have tags, they are automatically grouped together in the UI for better organisation.
 
 ![Article Tags Example](/images/tags.png)
 
@@ -209,7 +209,7 @@ Common tag patterns include:
 
 - **Difficulty levels**: `"beginner"`, `"intermediate"`, `"advanced"`
 - **Content types**: `"tutorial"`, `"reference"`, `"troubleshooting"`
-- **Features**: `"search"`, `"customization"`, `"api"`
+- **Features**: `"search"`, `"customisation"`, `"api"`
 - **Audience**: `"developers"`, `"administrators"`, `"end-users"`
 
 ### Tag Display
@@ -236,14 +236,14 @@ When articles in a category have tags:
 - Images and media
 - GitHub Flavored Markdown (GFM)
 
-## Customization
+## Customisation
 
-The help center is highly customizable:
+The help center is highly customisable:
 
 - **Branding**: Update logo, colors, and site name in config
 - **Categories**: Configure categories using `_category.md` frontmatter files in each category folder
 - **Styling**: Modify Tailwind CSS classes and components
-- **Layout**: Customize the overall layout and navigation
+- **Layout**: Customise the overall layout and navigation
 
 ## Authentication (Optional)
 
@@ -300,7 +300,7 @@ if (siteConfig.auth.enabled && siteConfig.auth.protect.content) {
 
 - **Next.js 14** - React framework with App Router
 - **TypeScript** - Type-safe development
-- **shadcn/ui** - Accessible and customizable React component library built with Tailwind CSS
+- **shadcn/ui** - Accessible and customisable React component library built with Tailwind CSS
 - **Tailwind CSS** - Utility-first CSS framework
 - **Remark/Rehype** - Markdown processing
 - **Lucide Icons** - Beautiful icon set

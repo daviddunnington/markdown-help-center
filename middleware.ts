@@ -1,35 +1,44 @@
-import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 import { siteConfig } from "./lib/config";
 
-// Define which routes should be protected
-
-// No need for unused middleware variable or assignment
-const isProtectedRoute = createRouteMatcher(["/editor(.*)"]);
-
-// Define content routes that might be protected based on config
-const isContentRoute = createRouteMatcher([
-  "/",
-  "/category(.*)",
-  "/categories(.*)",
-]);
-
-export default clerkMiddleware(async (auth, req) => {
-  // If auth is disabled, allow everything
+// Create middleware based on auth configuration
+async function createMiddleware() {
+  // If auth is disabled, use a simple middleware that does nothing
   if (!siteConfig.auth.enabled) {
-    return NextResponse.next();
+    return function middleware() {
+      return NextResponse.next();
+    };
   }
 
-  // Always protect editor if configured
-  if (siteConfig.auth.protect.editor && isProtectedRoute(req)) {
-    await auth.protect();
-  }
+  // Only import Clerk when auth is enabled
+  const { clerkMiddleware, createRouteMatcher } = await import(
+    "@clerk/nextjs/server"
+  );
 
-  // Protect content routes if configured
-  if (siteConfig.auth.protect.content && isContentRoute(req)) {
-    await auth.protect();
-  }
-});
+  // Define which routes should be protected
+  const isProtectedRoute = createRouteMatcher(["/editor(.*)"]);
+
+  // Define content routes that might be protected based on config
+  const isContentRoute = createRouteMatcher([
+    "/",
+    "/category(.*)",
+    "/categories(.*)",
+  ]);
+
+  return clerkMiddleware(async (auth, req) => {
+    // Always protect editor if configured
+    if (siteConfig.auth.protect.editor && isProtectedRoute(req)) {
+      await auth.protect();
+    }
+
+    // Protect content routes if configured
+    if (siteConfig.auth.protect.content && isContentRoute(req)) {
+      await auth.protect();
+    }
+  });
+}
+
+export default await createMiddleware();
 
 export const config = {
   matcher: [

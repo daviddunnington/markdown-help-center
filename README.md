@@ -126,9 +126,88 @@ Open [http://localhost:3000](http://localhost:3000) to see your help center.
 - Update branding and colors in the config
 - Deploy to Vercel, Netlify, or your preferred hosting platform
 
+## Built-in Markdown Editor
+
+The help center includes a powerful built-in editor at `/editor` that makes creating articles easy - no need to manually create files or remember frontmatter syntax.
+
+### Editor Features
+
+- **Visual Markdown Editor** - Write with live preview using @uiw/react-md-editor
+- **Form-Based Metadata** - Fill in article details through an intuitive form
+- **Category Management** - Select existing categories or create new ones
+- **Tag Support** - Add tags for better article organisation
+- **Auto-Generated Slugs** - Automatically creates URL-friendly slugs from titles
+- **Download Options** - Download individual articles or complete category folders
+- **Validation** - Ensures all required fields are filled before download
+
+### How to Use the Editor
+
+1. **Access the Editor**: Navigate to `/editor` in your help center (e.g., `http://localhost:3000/editor`)
+
+2. **Fill Article Details**:
+
+   - **Title**: Your article title (auto-generates slug)
+   - **Description**: Brief description for search and category pages
+   - **Category**: Select existing or create new category
+   - **Tag**: Optional - select existing or create custom tag
+   - **Order**: Numeric order for display within category
+
+3. **Create New Categories**:
+
+   - Click "Add new category" to create a fresh category
+   - Fill in category title, description, emoji, and order
+   - Editor will generate both the article and category metadata files
+
+4. **Write Content**:
+
+   - Use the markdown editor with full syntax highlighting
+   - Toggle between "Edit Mode" and "Preview Mode"
+   - Supports all standard Markdown features plus GitHub Flavored Markdown
+
+5. **Download Your Content**:
+
+   - **Existing Category**: Download just the article file (`.md`)
+   - **New Category**: Download complete category folder as ZIP containing:
+     - `_category.md` - Category configuration file
+     - `[article-slug].md` - Your article file
+
+6. **Deploy Your Content**:
+   - For existing categories: Save the `.md` file to `content/[category]/`
+   - For new categories: Extract the ZIP and copy the folder to `content/`
+   - Commit and push to see your changes live
+
+### Editor Authentication
+
+The editor can optionally be protected with authentication. Configure this in `lib/config.ts`:
+
+```typescript
+export const siteConfig = {
+  auth: {
+    enabled: true,
+    protect: {
+      content: false, // Public content
+      editor: true, // Protected editor
+    },
+  },
+};
+```
+
+When authentication is enabled, only signed-in users can access the editor at `/editor`.
+
 ## Content Management
 
 ### Adding New Articles
+
+You have two options for creating articles:
+
+#### Option 1: Use the Built-in Editor (Recommended)
+
+1. Navigate to `/editor` in your help center
+2. Fill in the article details form
+3. Write your content in the visual markdown editor
+4. Download the generated file(s) and add to your content directory
+
+#### Option 2: Create Files Manually
 
 1. Create a new `.md` file in the appropriate category folder
 2. Add the required frontmatter (title, description, category, slug)
@@ -175,8 +254,6 @@ content/
 ## Article Tags
 
 Tags provide an additional way to group and organise related articles within categories. When articles have tags, they are automatically grouped together in the UI for better organisation.
-
-![Article Tags Example](/images/tags.png)
 
 ### How Tags Work
 

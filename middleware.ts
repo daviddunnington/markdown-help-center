@@ -1,44 +1,32 @@
 import { NextResponse } from "next/server";
 import { siteConfig } from "./lib/config";
 
-// Create middleware based on auth configuration
-async function createMiddleware() {
-  // If auth is disabled, use a simple middleware that does nothing
+/**
+ * BASIC MIDDLEWARE (NO AUTHENTICATION)
+ *
+ * This middleware is used when authentication is disabled.
+ * It simply passes through all requests without any protection.
+ *
+ * TO ENABLE AUTHENTICATION:
+ * 1. Set siteConfig.auth.enabled = true in lib/config.ts
+ * 2. Add your Clerk environment variables to .env.local
+ * 3. Rename this file to 'basicMiddleware.ts' (as backup)
+ * 4. Rename 'exampleAuthMiddleware.ts' to 'middleware.ts'
+ *
+ * This file-swapping approach avoids Vercel build issues with
+ * conditional Clerk imports in the middleware.
+ */
+
+export default function middleware() {
+  // If auth is disabled, just pass through all requests
   if (!siteConfig.auth.enabled) {
-    return function middleware() {
-      return NextResponse.next();
-    };
+    return NextResponse.next();
   }
 
-  // Only import Clerk when auth is enabled
-  const { clerkMiddleware, createRouteMatcher } = await import(
-    "@clerk/nextjs/server"
-  );
-
-  // Define which routes should be protected
-  const isProtectedRoute = createRouteMatcher(["/editor(.*)"]);
-
-  // Define content routes that might be protected based on config
-  const isContentRoute = createRouteMatcher([
-    "/",
-    "/category(.*)",
-    "/categories(.*)",
-  ]);
-
-  return clerkMiddleware(async (auth, req) => {
-    // Always protect editor if configured
-    if (siteConfig.auth.protect.editor && isProtectedRoute(req)) {
-      await auth.protect();
-    }
-
-    // Protect content routes if configured
-    if (siteConfig.auth.protect.content && isContentRoute(req)) {
-      await auth.protect();
-    }
-  });
+  // This code should never run when auth is disabled
+  // But if it does, just pass through
+  return NextResponse.next();
 }
-
-export default await createMiddleware();
 
 export const config = {
   matcher: [

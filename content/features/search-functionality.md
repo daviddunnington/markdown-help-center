@@ -4,7 +4,7 @@ description: Learn how to use the search feature to find articles quickly
 category: General Info
 slug: search-functionality
 order: 1
-tag: "Feature"
+tag: "Live"
 ---
 
 # Search Functionality

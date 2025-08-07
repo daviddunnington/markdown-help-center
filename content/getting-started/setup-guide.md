@@ -3,7 +3,7 @@ title: Complete Setup Guide
 description: Step-by-step guide to set up and configure your help center from scratch
 category: Getting Started
 slug: setup-guide
-order: 3
+order: 1
 tag: "installation"
 ---
 

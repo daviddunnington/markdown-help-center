@@ -1,7 +1,7 @@
 ---
 title: What is MarkDown Help Center?
 description: An open-source, markdown-based help center built with Next.js for creating beautiful documentation and knowledge bases
-category: Getting Started
+category: General Info
 slug: what-is-markdown-help-center
 order: 1
 ---

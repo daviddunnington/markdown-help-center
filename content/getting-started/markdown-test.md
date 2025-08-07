@@ -3,8 +3,8 @@ title: Complete Markdown Test
 description: A comprehensive test of all markdown features
 category: Getting Started
 slug: complete-markdown-test
-order: 4
-tag: "advanced"
+order: 2
+tag: "example"
 ---
 
 # Complete Markdown Feature Test

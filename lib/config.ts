@@ -24,6 +24,12 @@ export interface SiteConfig {
       secretKey: string | undefined;
     };
   };
+  github?: {
+    enabled: boolean;
+    owner: string;
+    repo: string;
+    branch: string;
+  };
 }
 
 // Site configuration
@@ -50,5 +56,11 @@ export const siteConfig: SiteConfig = {
       publishableKey: process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY, // Safe to be public
       secretKey: process.env.CLERK_SECRET_KEY, // Already server-only
     },
+  },
+  github: {
+    enabled: process.env.NEXT_PUBLIC_GITHUB_ENABLED === "true",
+    owner: process.env.GITHUB_OWNER || "daviddunnington",
+    repo: process.env.GITHUB_REPO || "markdown-help-center",
+    branch: process.env.GITHUB_BRANCH || "main",
   },
 };

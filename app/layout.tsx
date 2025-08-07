@@ -8,6 +8,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { getAllArticles } from "@/lib/content";
 import { ClerkProvider } from "@clerk/nextjs";
 import { siteConfig } from "@/lib/config";
+import { Toaster } from "sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -49,6 +50,7 @@ export default async function RootLayout({
             </div>
           </BreadcrumbProvider>
           <Footer />
+          <Toaster />
         </ThemeProvider>
       </body>
     </html>

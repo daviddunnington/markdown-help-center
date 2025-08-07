@@ -397,6 +397,87 @@ This file-swapping approach prevents Vercel build issues that occur when trying 
 - **Sign-in Page**: Automatic redirect to `/sign-in` for protected content
 - **User Button**: Shows user avatar and logout option when authenticated
 
+## GitHub Integration (Optional)
+
+The help center supports optional direct GitHub integration, allowing you to commit articles and categories directly to your GitHub repository from the editor without downloading files.
+
+### Setup GitHub Integration
+
+1. **Create a GitHub Personal Access Token**:
+
+   - Go to [GitHub Settings > Developer settings > Personal access tokens](https://github.com/settings/tokens)
+   - Click "Generate new token (classic)"
+   - Give it a descriptive name like "Help Center Integration"
+   - Select the `repo` scope (for private repos) or `public_repo` scope (for public repos)
+   - Copy the generated token
+
+2. **Environment Variables**: Add your GitHub configuration to `.env.local`:
+
+   ```bash
+   # GitHub Integration
+   GITHUB_TOKEN=your_github_personal_access_token_here
+   NEXT_PUBLIC_GITHUB_ENABLED=true
+   GITHUB_OWNER=your-github-username
+   GITHUB_REPO=your-repository-name
+   GITHUB_BRANCH=main
+   ```
+
+3. **Configuration**: The GitHub settings are automatically configured in `lib/config.ts`:
+
+   ```typescript
+   // Automatically reads from environment variables
+   github: {
+     enabled: process.env.NEXT_PUBLIC_GITHUB_ENABLED === "true",
+     owner: process.env.GITHUB_OWNER || "your-username",
+     repo: process.env.GITHUB_REPO || "your-repo",
+     branch: process.env.GITHUB_BRANCH || "main",
+   }
+   ```
+
+### GitHub Integration Features
+
+- **Direct Commit**: Commit articles and categories directly to your GitHub repository
+- **Authentication Protected**: Only authenticated users can commit to GitHub (when auth is enabled)
+- **File Path Management**: Automatically manages proper file paths in your content structure
+- **Success Notifications**: Toast notifications for successful commits and error handling
+- **Batch Operations**: Commit entire categories with multiple files in one operation
+
+### Using GitHub Integration
+
+1. **Single Article Commit**:
+
+   - Fill in article details and content
+   - Click "🚀 Commit Article to GitHub"
+   - Enter a commit message
+   - Article is committed to `content/[category]/[slug].md`
+
+2. **Category Commit**:
+   - Create a new category with article content
+   - Click "🚀 Commit Category to GitHub"
+   - Enter a commit message
+   - Both `_category.md` and article files are committed
+
+### File Structure
+
+When committing to GitHub, files are organized as:
+
+```
+content/
+├── your-category/
+│   ├── _category.md          # Category configuration
+│   └── your-article.md       # Article content
+└── another-category/
+    ├── _category.md
+    ├── first-article.md
+    └── second-article.md
+```
+
+### Security Notes
+
+- **Token Security**: Never commit your `GITHUB_TOKEN` to version control
+- **Repository Access**: The token only needs access to the specific repository
+- **Server-Only**: GitHub operations are performed server-side for security
+
 ### Usage Examples
 
 ```typescript

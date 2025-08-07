@@ -25,6 +25,7 @@ export interface Category {
   count: number;
   articles: Array<{ slug: string; title: string }>;
   emoji?: string;
+  order?: number;
 }
 
 export interface TagGroup {
@@ -96,6 +97,7 @@ export function getCategories(articles: Article[]): Category[] {
       title: string;
       description: string;
       emoji?: string;
+      order: number;
       articles: Array<{ slug: string; title: string }>;
     }
   >();
@@ -104,7 +106,7 @@ export function getCategories(articles: Article[]): Category[] {
   // Read category metadata from _category.md files
   const categoryMetadata: Record<
     string,
-    { title: string; description: string; emoji?: string }
+    { title: string; description: string; emoji?: string; order?: number }
   > = {};
 
   try {
@@ -120,6 +122,7 @@ export function getCategories(articles: Article[]): Category[] {
             title: data.title || "",
             description: data.description || "",
             emoji: data.emoji,
+            order: data.order,
           };
         }
       }
@@ -135,12 +138,14 @@ export function getCategories(articles: Article[]): Category[] {
       title: "",
       description: "",
       emoji: undefined,
+      order: 999,
       articles: [],
     };
     const metadata = categoryMetadata[category] || {
       title: "",
       description: "",
       emoji: undefined,
+      order: 999,
     };
 
     categoryMap.set(category, {
@@ -148,6 +153,7 @@ export function getCategories(articles: Article[]): Category[] {
       title: metadata.title,
       description: metadata.description,
       emoji: metadata.emoji,
+      order: metadata.order || 999,
       articles: [
         ...current.articles,
         { slug: article.slug, title: article.title },
@@ -155,8 +161,8 @@ export function getCategories(articles: Article[]): Category[] {
     });
   });
 
-  return Array.from(categoryMap.entries()).map(
-    ([slug, { count, title, description, emoji, articles }]) => ({
+  return Array.from(categoryMap.entries())
+    .map(([slug, { count, title, description, emoji, order, articles }]) => ({
       title:
         title ||
         slug
@@ -168,8 +174,14 @@ export function getCategories(articles: Article[]): Category[] {
       count,
       articles,
       emoji,
-    })
-  );
+      order,
+    }))
+    .sort((a, b) => {
+      // Sort by order value, with undefined/null orders going to the end
+      const orderA = a.order ?? 999;
+      const orderB = b.order ?? 999;
+      return orderA - orderB;
+    });
 }
 
 export function groupArticlesByTags(articles: Article[]): TagGroup[] {
